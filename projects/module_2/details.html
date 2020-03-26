@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+        input{
+            height: 60px;
+            width: 100%;
+            border-radius: 40px;
+            text-align: center;
+            font-size: 1.6em;
+            border: none;
+            outline: none;
+            box-shadow: 2px 3px 12px rgb(255, 249, 249,0.6),
+            2px 3px 12px rgb(255, 249, 249,0.2);
+        }
+        h1{
+            color: rgb(255, 249, 249);
+        }
+        @media(max-width: 600){
+            input{
+                font-size: 18px;
+            }
+        }
+        .box{
+            /* background-color: rgba(27, 27, 27, 0.863); */
+           
+           
+        }
+        
+        #btn{
+            background-color: lightskyblue;
+            border: none;
+            outline: none;
+            width: 40px;
+            height: 40px;
+            margin: 2px;
+        }
+        
+        .active{
+            background-color: lightgreen;
+        }
+        a{
+            background-color: rgb(69, 69, 245);
+            padding: 8px 12px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+        }
+        a:hover{
+            background-color: rgb(69, 69, 245);
+            padding: 8px 12px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+   <h4 class="text-center">Movie Details</h4>
+    <div class="container">
+
+        <div class="row" style="background-color: rgba(27, 27, 27, 0.835);">
+
+            <div class="col-12 col-md-6 col-lg-4 text-center" id="detail1">
+
+            </div>
+            <div class="col-12 col-md-6 col-lg-8" id="detail2">
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    
+       async function details(){
+            
+            try{
+                var val= localStorage.getItem("id")
+        var data = await fetch(`http://www.omdbapi.com/?i=${val}&apikey=c2b57a4d`)
+        var data2 =await data.json()
+        console.log(data2)
+
+        var main = document.getElementById("detail1")
+        var main1 = document.getElementById("detail2")
+        
+        main.innerHTML = `
+        <img class="mt-3" src="${data2.Poster}"/>
+        <h5 class="mt-2">${data2.Title}</h5>
+        <p><b>Release year: ${data2.Year}</b><p>
+        <a href="api.html">get back</button>
+        `
+        main1.innerHTML = `
+        <h5 class="mt-3">${data2.Title}</h5>
+        <p><b>Release on: ${data2.Released}</b><p>
+        <h6>Director : ${data2.Director}</h6>
+        <h6>Actors : ${data2.Actors}</h6>
+        <p>Plot: ${data2.Plot}</p>
+        <p>Language : ${data2.Language}</p>
+        <p>Imdb rating: ${data2.imdbRating}</p>
+        <a href="https://www.imdb.com/title/${data2.imdbID}">IMDB page</a>
+        
+
+        
+        `
+            }catch(error){
+                console.log(error)
+            }
+        }
+        
+
+
+        details()
+  
+
+</script>
+</html>
